@@ -43,8 +43,8 @@
         <table id="result-tab" class="ui very basic center aligned table">
             <thead>
                 <tr>
-                    <th style="width: 30%;">채점 결과</th>
-                    <th style="width: 70%;">설명</th>
+                    <th style="width: 15%;">채점 결과</th>
+                    <th style="width: 85%;">설명</th>
                 </tr>
             </thead>
             <tbody>
