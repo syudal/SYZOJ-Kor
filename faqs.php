@@ -1,57 +1,110 @@
-<?php $show_title="$MSG_FAQ - $OJ_NAME"; ?>
-<?php include("template/$OJ_TEMPLATE/header.php");?>
+<?php $show_title = "$MSG_FAQ - $OJ_NAME"; ?>
+<?php include("template/$OJ_TEMPLATE/header.php"); ?>
 <div class="padding">
-    <h1 class="ui center aligned header">帮助</h1>
+    <h1 class="ui center aligned header">자주 묻는 질문</h1>
     <div style="font-content">
-        <h2 class="ui header">评测</h2>
-        <p>
-            <br> C++ 使用 <code>g++ 9.4.0</code> 编译，命令为
-            &nbsp;<code>g++ -fno-asm -Wall -lm --static -O2 -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code>；
-            <br> C 使用 <code>gcc 9.4.0</code> 编译，命令为
-            &nbsp;<code>gcc Main.c -o Main -fno-asm -Wall -lm --static -O2 -std=c99 -DONLINE_JUDGE</code>
-            <br> 您可以使用 <code>#pragma GCC optimize ("O0")</code> 手工关闭 O2 优化；
-            <br> Pascal 使用 <code>fpc 3.0.4</code> 编译，命令为
-            &nbsp;<code>fpc Main.pas -oMain -O1 -Co -Cr -Ct -Ci</code>。
-            <br> Java 使用 <code>OpenJDK 17.0.4</code> 编译，命令为
-            <code>	javac -J-Xms32m -J-Xmx256m Main.java</code>，如果您的代码中没有 <code>public class</code>，请将入口类命名为 <code>Main</code>，在评测时提供额外 2 秒的运行时间和 512MB 的运行内存。
-            <br>
-            这里给出的编译器版本仅供参考，请以实际编译器版本为准。
-        </p>
-        <p>请使用<strong>标准输入输出</strong>。</p>
-<h2 class="ui header">Q: cin/cout为什么会超时（TLE）?</h2>
-<p>A: cin/cout因为默认同步stdin/stdout而变慢，并产生更多的系统调用而受到性能影响，可以在main函数开头加入下面代码加速：
-       <div class="ui existing segment">
-            <pre style="margin-top: 0; margin-bottom: 0; ">ios::sync_with_stdio(false);
-cin.tie(0);</pre>
-        </div>
+        <h2 class="ui header">컴파일 옵션</h2>
+        <p>Java와 Python3으로 제출한 경우 추가 시간이 제공됩니다.</p>
+        <table id="result-tab" class="ui very basic center aligned table" style="white-space: nowrap; ">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">언어</th>
+                    <th style="width: 15%;">컴파일러 버전</th>
+                    <th style="width: 70%;">컴파일 옵션</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>C</th>
+                    <th>gcc 9.4.0</th>
+                    <th>gcc Main.c -o Main -fno-asm -Wall -lm --static -O2 -std=c99 -DONLINE_JUDGE</th>
+                </tr>
+                <tr>
+                    <th>C++</th>
+                    <th>g++ 9.4.0</th>
+                    <th>g++ -fno-asm -Wall -lm --static -O2 -std=c++14 -DONLINE_JUDGE -o Main Main.cc</th>
+                </tr>
+                <tr>
+                    <th>Java</th>
+                    <th>OpenJDK 17.0.4</th>
+                    <th>javac -J-Xms32m -J-Xmx256m Main.java</th>
+                </tr>
+                <tr>
+                    <th>Python3</th>
+                    <th>python 3.8.10</th>
+                    <th>python3 -m py_compile Main.py</th>
+                </tr>
+            </tbody>
+        </table>
 
-        * 另外，请使用'\n'而不是 endl ，因为endl默认会增加刷新操作，而导致输出缓冲失效，降低效率。
-    </p>
+        <h2 class="ui header">채점 결과</h2>
+        <table id="result-tab" class="ui very basic center aligned table" style="white-space: nowrap; ">
+            <thead>
+                <tr>
+                    <th style="width: 30%;">채점 결과</th>
+                    <th style="width: 70%;">설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>채점 대기중</th>
+                    <th>코드가 제출되고 채점을 기다리고 있는 상태입니다. 대부분의 경우 조금만 기다리면 채점이 진행됩니다.</th>
+                </tr>
+                <tr>
+                    <th>재채점 대기중</th>
+                    <th>채점 데이터가 갱신되어 재채점을 기다리고 있는 상태입니다.</th>
+                </tr>
+                <tr>
+                    <th>컴파일중</th>
+                    <th>제출된 코드를 컴파일하는 중입니다.</th>
+                </tr>
+                <tr>
+                    <th>채점중</th>
+                    <th>채점이 진행되고 있는 중입니다.</th>
+                </tr>
+                <tr>
+                    <th>모두 맞음</th>
+                    <th>모든 채점 데이터에 대해서 정확한 답을 출력했다는 의미입니다.</th>
+                </tr>
+                <tr>
+                    <th>출력형식 다름</th>
+                    <th>출력된 결과가 문제에서 출력해야하는 출력형식과 다르게 출력되었다는 의미입니다. 문제의 출력형식에서 요구하는 형식과 똑같아야 합니다. 답 출력 후 출력형식에는 없는 공백문자나
+                        줄 바꿈이 더 출력되지는 않았는지 확인해 보아야 합니다.</th>
+                </tr>
+                <tr>
+                    <th>틀림</th>
+                    <th>틀린 답을 출력헸다는 의미입니다. 채점 시스템에 등록하는 채점 데이터들은 외부로 공개하지 않는 것이 일반적입니다. 제출한 코드가 틀린 답을 출력하는 경우가 어떤 경우일지 더
+                        생각해 보아야 합니다.</th>
+                </tr>
+                <tr>
+                    <th>시간제한 초과</th>
+                    <th>제한시간 이내에 답을 출력하지 못했다는 의미입니다. 좀 더 빠르면서도 정확한 결과를 출력하도록 소스 코드를 수정해야합니다.</th>
+                </tr>
+                <tr>
+                    <th>메모리제한 초과</th>
+                    <th>제출한 프로그램이 제한된 메모리용량보다 더 많은 메모리을 사용했다는 의미입니다. 메모리를 더 적게 사용하는 코드로 수정해야합니다.</th>
+                </tr>
+                <tr>
+                    <th>출력제한 초과</th>
+                    <th>제출한 프로그램이 제한된 출력량 이상으로 결과를 출력했다는 의미입니다. 대부분의 경우 무한 반복 실행 구조에 의해 발생합니다. 채점 시스템의 출력 제한 바이트 수는 1M
+                        bytes 입니다.</th>
+                </tr>
+                <tr>
+                    <th>실행중 에러</th>
+                    <th>제출한 프로그램이 실행되는 도중에 오류가 발생했다 의미입니다. 예를 들어, 'segmentation fault(허용되지 않는 메모리 영역에 접근하는 경우: 배열 인덱스 초과
+                        등)','floating point exception(실수 계산 예외: 0 으로 나누는 등)','used forbidden functions(제한된 함수를 사용한 경우:
+                        파일 처리 함수 등이 사용된 경우 등)', 'tried to access forbidden memories(허용되지 않는 시스템 메모리 영역 등에 접근하는 경우 등)' 등에
+                        의해 발생합니다.</th>
+                </tr>
+                <tr>
+                    <th>컴파일 에러</th>
+                    <th>제출한 소스코드를 ANSI 표준(gcc/g++/gpc) 컴파일러로 컴파일하지 못했다는 의미입니다. 컴파일 오류 메시지가 아닌 오류 경고(warning)는 이 메시지를
+                        출력하지 않습니다. 메시지 부분을 누르면 컴파일 오류 메시지를 확인할 수도 있습니다.</th>
+                </tr>
+            </tbody>
+        </table>
 
-<h2 class="ui header">Q: gets函数没有了吗?</h2>
-<p>A: gets函数因为不能限制输入的长度，造成了历史上大量的缓冲区溢出漏洞，因此在最新版本中被彻底删除了，请使用fgets这个函数取代。 或者使用下面的宏定义来取代：
-    <div class="ques-view">   #define gets(S) fgets(S,sizeof(S),stdin)  </div>
-    </p>
-        <h2 class="ui header">个人资料<br></h2>
-        <p>本站不提供头像存储服务，而是使用 QQ 头像显示。请使用QQ邮箱注册 ，系统自动取用您在QQ的头像。</p>
-        <h2 class="ui header">返回结果说明<br></h2>
-        <div class="ques-view">
-            <p>试题的解答提交后由评分系统评出即时得分，每一次提交会判决结果会及时通知；系统可能的反馈信息包括：</p>
-            <li>等待评测：评测系统还没有评测到这个提交，请稍候</li>
-            <li>正在评测：评测系统正在评测，稍候会有结果</li>
-            <li>编译错误：您提交的代码无法完成编译，点击“编译错误”可以看到编译器输出的错误信息</li>
-            <li>答案正确：恭喜！您通过了这道题</li>
-            <li>格式错误：您的程序输出的格式不符合要求（比如空格和换行与要求不一致）</li>
-            <li>答案错误：您的程序未能对评测系统的数据返回正确的结果</li>
-            <li>运行超时：您的程序未能在规定时间内运行结束</li>
-            <li>内存超限：您的程序使用了超过限制的内存</li>
-            <li>运行错误：您的程序在运行过程中崩溃了，发生了如段错误、浮点错误等</li>
-            <li>输出超限：您的程序输出了过多内容，一般可能是无限循环输出导致的结果</li>
-        </div>
-
-
-        <h2>程序样例</h2>
-        <p>以下样例程序可用于解决这道简单的题目：<strong>读入2个整数A和B，然后输出它们的和。</strong></p>
+        <h2>언어별 입출력 예시</h2>
         <p><strong>gcc (.c)</strong></p>
         <div class="ui existing segment">
             <pre style="margin-top: 0; margin-bottom: 0; ">
@@ -82,18 +135,6 @@ int main(){
     return 0;
 }</code></pre>
         </div>
-        <p><strong>fpc (.pas)</strong></p>
-        <div class="ui existing segment">
-            <pre style="margin-top: 0; margin-bottom: 0; ">
-<code class="lang-pascal">var
-a, b: integer;
-begin
-    while not eof(input) do begin
-        readln(a, b);
-        writeln(a + b);
-    end;
-end.</code></pre>
-        </div>
         <p><strong>javac (.java)</strong></p>
         <div class="ui existing segment">
             <pre style="margin-top: 0; margin-bottom: 0; ">
@@ -122,4 +163,4 @@ for line in sys.stdin:
     </div>
 </div>
 
-<?php include("template/$OJ_TEMPLATE/footer.php");?>
+<?php include("template/$OJ_TEMPLATE/footer.php"); ?>
