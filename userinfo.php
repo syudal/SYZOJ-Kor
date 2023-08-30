@@ -30,8 +30,8 @@
                         </div>
                     </div>
                     <div class="extra content">
-                        <a><i class="check icon"></i>정답률 :
-                            <?php echo $AC ?>
+                        <a><i class="check icon"></i>맞춘 문제 :
+                            <?php echo $AC ?> 개
                         </a>
                         <a style="float: right; "><i class="star icon"></i>순위 :
                             <?php echo $Rank ?> 위
@@ -93,7 +93,7 @@
                                     }
                                     <?php
                                     $sql = "SELECT `problem_id`,count(1) from solution where `user_id`=? and result=4 and problem_id != 0 group by `problem_id` ORDER BY `problem_id` ASC";
-                                    /*if ($ret = pdo_query($sql, $user)) {
+                                    if ($ret = pdo_query($sql, $user)) {
                                         $len = count($ret);
                                         echo "ptot($len);";
                                         foreach ($ret as $row){
@@ -102,7 +102,7 @@
                                             else
                                                 echo "p($row[0],0);";
                                         }
-                                    }*/
+                                    }
                                     ?>
                                 </script>
                             </div>
@@ -120,10 +120,10 @@
                                         }
                                         <?php
                                         $sql = "SELECT `sol`.`problem_id`, count(1) from solution sol where `sol`.`user_id`=? and `sol`.`result`!=4 and sol.problem_id != 0 and not exists (select * from solution s where s.user_id=sol.user_id and s.problem_id = sol.problem_id and s.result = 4) group by `sol`.`problem_id` ORDER BY `sol`.`problem_id` ASC";
-                                        /*if ($result = pdo_query($sql, $user)) {
+                                        if ($result = pdo_query($sql, $user)) {
                                             foreach ($result as $row)
                                                 echo "p($row[0],$row[1]);";
-                                        }*/
+                                        }
                                         ?>
                                 </script>
                             </div>
@@ -212,7 +212,7 @@
     $sub_data = [];
     $max_count = 0;
     $sql = "SELECT DATE(in_date),count(*) FROM solution WHERE user_id=? AND  in_date >= DATE_SUB(CURDATE(),INTERVAL 1 YEAR) AND result < 13 GROUP BY DATE(in_date);";
-    //$ret = pdo_query($sql, $user);
+    $ret = pdo_query($sql, $user);
     foreach ($ret as $row) {
         array_push($sub_data, [$row[0], (int) $row[1]]);
         $max_count = max($max_count, (int) $row[1]);
