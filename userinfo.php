@@ -1,4 +1,4 @@
-<?php $show_title="用户信息 - $OJ_NAME"; ?>
+<?php $show_title="사용자 정보 - $OJ_NAME"; ?>
 <?php include("template/$OJ_TEMPLATE/header.php");?>
 <style>
 #avatar_container:before {
@@ -7,22 +7,6 @@
     padding-top: 100%;
 }
 </style>
-<?php 
-    $calsed = '锦鲤';
-    $calledid = -1;
-    $acneed = [10,20,30,50,80,100,200,300,500,800,1000];
-    $accall = ["萌新","小小牛","小牛","小犇","中牛","中犇","大牛","大犇","神牛","神犇"];
-    for ($i = count($accall);$i > 0; $i--) {
-        if ($AC < $acneed[$i]) {$calsed = $accall[$i - 1];$calledid=$i-1;}
-    }
-    for ($i=0;$i<=11;++$i){
-    	$ped[$i]=0;
-    }
-    $sql="SELECT * FROM `solution` WHERE `user_id`=?";
-    $result = pdo_query($sql, $user);
-    foreach ($result as $row) {
-    	++$ped[$row['result']];
-}?>
 
 <div class="padding">
 <div class="ui grid">
@@ -31,15 +15,6 @@
             <div class="ui card" style="width: 100%; " id="user_card">
                 <div class="blurring dimmable image" id="avatar_container" style="height:325px">
                     <?php $default = ""; $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=500"; ?>
-		<?php  
-		    // 如果email填写的是qq邮箱，取QQ头像显示
-                    $qq=stripos($email,"@qq.com");
-                    if($qq>0){
-                         $qq=urlencode(substr($email,0,$qq));
-                         $grav_url="https://q1.qlogo.cn/g?b=qq&nk=$qq&s=5";
-                    };
-
-                ?>
 
                     <img style="margin-top: -100%; " src="<?php echo $grav_url; ?>">
                 </div>
@@ -49,22 +24,13 @@
                         <a class="group"><?php echo $school?></a>
                     </div>
                 </div>
-                 <table class="table table-hover" style="width:100%">
-                <tbody>
-                    <tr>
-                        <th width=20%>等级</th>
-                        <td width=20%><?php echo $calsed;?></td>
-                        <td width=55%>距离 <?php echo $accall[$calledid+1];?> 还需AC <?php echo $acneed[$calledid+1]-$AC;?>题</td>
-                    </tr>
-                </tbody>
-              </table>
                 <div class="extra content">
-                    <a><i class="check icon"></i>通过 <?php echo $AC ?> 题</a>
-                    <a style="float: right; "><i class="star icon"></i>排名 <?php echo $Rank ?></a>
+                    <a><i class="check icon"></i>정답률 : <?php echo $AC ?></a>
+                    <a style="float: right; "><i class="star icon"></i>순위 : <?php echo $Rank ?> 위</a>
                     
                      <?php if ($email != "") { ?>
                             <div style="margin-top:10px;margin-bottom:10px">
-                                <a href="mailto:<?php echo "Hello" ?>?body=CSPOJ">
+                                <a href="mailto:<?php echo $email ?>">
                                     <i class="icon large envelope"></i>
                                     <span style="display:inline-block; vertical-align:middle"><?php echo $email?></span>
                                 </a>
@@ -79,16 +45,16 @@
                 <div class="ui grid" style="padding-left: 20px;">
                     <div class="row">
                         <div class="column">
-                            <h4 class="ui top attached block header">提交统计</h4>
+                            <h4 class="ui top attached block header">제출 횟수</h4>
                             <div class="ui bottom attached segment">
                                 <div id="sub_date_chart" style="width:100%;height:210px"></div>
-                                <a href="/status.php?user_id=<?php echo $user?>"><i class="search icon"></i>查询该用户提交</a>
+                                <a href="/status.php?user_id=<?php echo $user?>"><i class="search icon"></i>상세 채점 기록 보기</a>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                            <h4 class="ui top attached block header">统计</h4>
+                            <h4 class="ui top attached block header">통계</h4>
                             <div class="ui bottom attached segment">
                                 <div class="ui grid">
                                     <div class="row">
@@ -104,28 +70,8 @@
                     </div>
                     <div class="row">
                         <div class="column">
-                            <h4 class="ui top attached block header">未通过的题目</h4>
-                            <div class="ui bottom attached segment">
-                                <script language='javascript'>
-                                    function p(id, c) {
-                                        document.write("<a href=problem.php?id=" + id + " class=\"ui basic label\" id=\"show-problem-id\">" + id +
-                                            " </a>");
-                                    }
-                                    <?php
-                                    $sql = "SELECT `sol`.`problem_id`, count(1) from solution sol where `sol`.`user_id`=? and `sol`.`result`!=4 and sol.problem_id != 0 and not exists (select * from solution s where s.user_id=sol.user_id and s.problem_id = sol.problem_id and s.result = 4) group by `sol`.`problem_id` ORDER BY `sol`.`problem_id` ASC";
-                                    if ($result = pdo_query($sql, $user)) {
-                                        foreach ($result as $row)
-                                            echo "p($row[0],$row[1]);";
-                                    }
-                                    ?>
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
                             <h4 class="ui top attached block header">
-                                通过的题目
+                                해결한 문제
 
                             </h4>
                             <div class="ui bottom attached segment">
@@ -156,6 +102,27 @@
 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="column">
+                            <h4 class="ui top attached block header">실패한 문제</h4>
+                            <div class="ui bottom attached segment">
+                                <script language='javascript'>
+                                    function p(id, c) {
+                                        document.write("<a href=problem.php?id=" + id + " class=\"ui basic label\" id=\"show-problem-id\">" + id +
+                                            " </a>");
+                                    }
+                                    <?php
+                                    $sql = "SELECT `sol`.`problem_id`, count(1) from solution sol where `sol`.`user_id`=? and `sol`.`result`!=4 and sol.problem_id != 0 and not exists (select * from solution s where s.user_id=sol.user_id and s.problem_id = sol.problem_id and s.result = 4) group by `sol`.`problem_id` ORDER BY `sol`.`problem_id` ASC";
+                                    if ($result = pdo_query($sql, $user)) {
+                                        foreach ($result as $row)
+                                            echo "p($row[0],$row[1]);";
+                                    }
+                                    ?>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
 
                                         <div class="row">
                         <div class="column">
@@ -306,7 +273,7 @@ $beg_time = date('Y-m-d', strtotime("-6 month"));
         },
         tooltip: {
             formatter: function(params) {
-                return params.value[0] + '<br>提交数：' + params.value[1];
+                return params.value[0] + '<br>제출 횟수：' + params.value[1];
             }
         },
         visualMap: {
@@ -341,11 +308,11 @@ $beg_time = date('Y-m-d', strtotime("-6 month"));
             },
             dayLabel: {
                 firstDay: 1,
-                nameMap: 'cn',
+                nameMap: 'ko',
                 margin: '8px'
             },
             monthLabel: {
-                nameMap: 'cn',
+                nameMap: 'ko',
                 margin: 15,
                 fontSize: 14,
                 color: 'gray'
@@ -356,7 +323,7 @@ $beg_time = date('Y-m-d', strtotime("-6 month"));
             
         },
         series: {
-            name: '提交次数',
+            name: '제출 횟수',
             type: 'heatmap',
             coordinateSystem: 'calendar',
             data: <?php echo json_encode($sub_data, false); ?>,
