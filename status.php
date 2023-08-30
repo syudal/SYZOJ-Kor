@@ -31,7 +31,7 @@
           }
           ?>
         </select>
-        <label style="font-size: 1.2em; margin-right: 1px;margin-left: 10px; ">状态：</label>
+        <label style="font-size: 1.2em; margin-right: 1px;margin-left: 10px; "><?php echo $MSG_STATUS ?>：</label>
         <select class="form-control" size="1" name="jresult" style="width: 110px;">
           <?php if (isset($_GET['jresult'])) $jresult_get=intval($_GET['jresult']);
           else $jresult_get=-1;
@@ -50,7 +50,7 @@
             $showsim=intval($_GET['showsim']);
             else
             $showsim=0;
-            echo "<label style=\"font-size: 1.2em; margin-right: 1px;margin-left: 10px; \">相似度：</label>";
+            echo "<label style=\"font-size: 1.2em; margin-right: 1px;margin-left: 10px; \">".$MSG_MAIL."：</label>";
           echo "
           <select id=\"appendedInputButton\" class=\"form-control\" name=showsim onchange=\"document.getElementById('simform').submit();\" style=\"width: 110px;\">
           <option value=0 ".($showsim==0?'selected':'').">All</option>
@@ -75,11 +75,9 @@
   <table id="result-tab" class="ui very basic center aligned table" style="white-space: nowrap; " id="table">
     <thead>
       <tr>
-                <th><?php echo $MSG_RUNID?></th>
-                <th><?php echo $MSG_USER?></th>
-                                                <th>
-                                                        <?php echo $MSG_NICK?>
-                                                </th>
+        <th><?php echo $MSG_RUNID?></th>
+        <th><?php echo $MSG_USER?></th>
+        <th><?php echo $MSG_NICK?></th>
         <th><?php echo $MSG_PROBLEM_ID?></th>
         <th><?php echo $MSG_RESULT?></th>
         <th><?php echo $MSG_MEMORY?></th>
@@ -87,11 +85,11 @@
         <th><?php echo $MSG_LANG?></th>
         <th><?php echo $MSG_CODE_LENGTH?></th>
         <th><?php echo $MSG_SUBMIT_TIME?></th>
-       <?php    if (isset($_SESSION[$OJ_NAME.'_'.'administrator'])) {
-                                                        echo "<th class='text-left'>";
-                                                                echo $MSG_JUDGER;
-                                                        echo "</th>";
-                                                } ?>
+        <?php if (isset($_SESSION[$OJ_NAME.'_'.'administrator'])) {
+        echo "<th class='text-left'>";
+        echo $MSG_JUDGER;
+        echo "</th>";
+        } ?>
       </tr>
     </thead>
     <tbody>

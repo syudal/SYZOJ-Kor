@@ -1,3 +1,4 @@
+<?php $show_title="$MSG_LOGIN - $OJ_NAME"; ?>
 <?php include("template/$OJ_TEMPLATE/header.php");?>
 <div class="padding">
   <h1>修改用户信息</h1>

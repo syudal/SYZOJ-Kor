@@ -16,7 +16,7 @@
 </div>
 <div class="padding" style="overflow-y:auto;">
     <?php if($user_cnt>0){ ?>
-    <table class="ui very basic center aligned table" sylye="margin:30px">
+    <table class="ui very basic center aligned table" style="margin:30px">
         <thead>
             <tr class='active'>
             <td class="{sorter:'false'} text-center"><?php echo $MSG_STANDING?></td>
