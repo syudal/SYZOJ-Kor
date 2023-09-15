@@ -71,6 +71,39 @@
       <?php echo $MSG_RESET; ?>
     </button>
   </form>
+  <h1>프로필 사진 업로드</h1>
+  <div class="ui form">
+    <div class="field">
+      <input type="file" id="fileInput">
+    </div>
+    <button onclick="uploadFile()" class="ui button">업로드</button>
+  </div>
 </div>
+<script>
+  function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+
+    if (fileInput.files.length > 0) {
+      const selectedFile = fileInput.files[0];
+
+      const formData = new FormData();
+      formData.append('fileToUpload', selectedFile);
+
+      fetch('template/<?php echo $OJ_TEMPLATE ?>/upload_image.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(data => {
+          alert(data); // 업로드 결과 메시지
+        })
+        .catch(error => {
+          alert('업로드 오류:', error);
+        });
+    } else {
+      alert('파일을 선택해주세요.');
+    }
+  }
+</script>
 
 <?php include("template/$OJ_TEMPLATE/footer.php"); ?>

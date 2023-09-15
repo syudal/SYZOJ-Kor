@@ -15,7 +15,11 @@
                 <div class="ui card" style="width: 100%; " id="user_card">
                     <div class="blurring dimmable image" id="avatar_container" style="height:325px">
                         <?php $default = "";
-                        $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=500"; ?>
+                        $profile = $_SERVER['DOCUMENT_ROOT'] . "/upload/" . $nick . ".webp";
+                        $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=500";
+                        if (file_exists($profile)) {
+                            $grav_url = "/upload/" . $nick . ".webp";
+                        } ?>
 
                         <img style="margin-top: -100%; " src="<?php echo $grav_url; ?>">
                     </div>
@@ -59,7 +63,8 @@
                             <h4 class="ui top attached block header">제출 횟수</h4>
                             <div class="ui bottom attached segment">
                                 <div id="sub_date_chart" style="width:100%;height:210px"></div>
-                                <a href="/status.php?user_id=<?php echo $user ?>"><i class="search icon"></i>상세 채점 기록 보기</a>
+                                <a href="/status.php?user_id=<?php echo $user ?>"><i class="search icon"></i>상세 채점 기록
+                                    보기</a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +101,7 @@
                                     if ($ret = pdo_query($sql, $user)) {
                                         $len = count($ret);
                                         echo "ptot($len);";
-                                        foreach ($ret as $row){
+                                        foreach ($ret as $row) {
                                             if (isset($acc_arr[$row['problem_id']]))
                                                 echo "p($row[0],$row[1]);";
                                             else
@@ -145,8 +150,7 @@
                     data: {
                         datasets: [{
                             data: [
-                                <?php
-                                foreach ($view_userstat as $row) {
+                                <?php foreach ($view_userstat as $row) {
                                     echo $row[1] . ",\n";
                                 }
                                 ?>
