@@ -87,7 +87,7 @@
       const selectedFile = fileInput.files[0];
 
       const formData = new FormData();
-      formData.append('fileToUpload', selectedFile);
+      formData.append('profileUpload', selectedFile);
 
       fetch('template/<?php echo $OJ_TEMPLATE ?>/upload_image.php', {
         method: 'POST',
