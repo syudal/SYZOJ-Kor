@@ -28,8 +28,11 @@ function uploadAndCropImage($profileName)
             $webpFileName = $profileName . ".webp";
             $uploadPath = $_SERVER['DOCUMENT_ROOT'] . "/upload/";
 
+            // 임시 파일의 경로를 UTF-8로 변환합니다.
+            $utf8TmpFileName = mb_convert_encoding($fileTmpName, 'UTF-8', 'auto');
+
             // 파일을 이동시킵니다.
-            if (move_uploaded_file($fileTmpName, $uploadPath.$newFileName)) {
+            if (move_uploaded_file($utf8TmpFileName, $uploadPath.$newFileName)) {
                 // 크롭 함수를 호출하여 1:1 비율로 크롭합니다.
                 cropImage($uploadPath.$newFileName, $uploadPath.$webpFileName, 300);
                 unlink($uploadPath.$newFileName);
