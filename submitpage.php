@@ -12,11 +12,6 @@
 		background-color: #ffeeee;
 	}
 
-	.ace_content {
-		/* 代码 */
-		background-color: #eeffee;
-	}
-
 	.ace-chrome .ace_marker-layer .ace_active-line {
 		/*当前行*/
 		background-color: rgba(0, 0, 199, 0.3);
@@ -91,6 +86,21 @@
 
 			<?php } ?>
 		</span>
+		<?php if ($spj <= 1): ?>
+			<button onclick="toggleTheme(event)"
+				style="background-color: bisque; position: absolute; top: 5px; right: 170px;" v-if="false">
+				<i>🌗</i>
+			</button>
+			<button onclick="increaseFontSize(event)"
+				style="background-color: bisque; position: absolute; top: 5px; right:120px;" v-if="false">
+				<i>➕</i>
+			</button>
+			<button onclick="decreaseFontSize(event)"
+				style="background-color: bisque; position: absolute; top: 5px; right: 80px;" v-if="false">
+				<i>➖</i>
+			</button>
+		<?php endif; ?>
+
 		<?php if ($OJ_ACE_EDITOR) {
 
 			if (isset($OJ_TEST_RUN) && $OJ_TEST_RUN)
@@ -98,9 +108,13 @@
 			else
 				$height = "500px";
 			?>
+
+
+
 			<pre style="width:90%;height:<?php echo $height ?>" cols=180 rows=16
 				id="source"><?php echo htmlentities($view_src, ENT_QUOTES, "UTF-8") ?></pre>
 			<input type=hidden id="hide_source" name="source" value="" />
+
 		<?php } else { ?>
 			<textarea style="width:80%;height:600" cols=180 rows=25 id="source"
 				name="source"><?php echo htmlentities($view_src, ENT_QUOTES, "UTF-8") ?></textarea>
@@ -280,7 +294,7 @@
 		$("#Submit").prop('disabled', true);
 		$("#TestRub").prop('disabled', true);
 		problem_id.value = -problem_id.value;
-		count =<?php echo $OJ_SUBMIT_COOLDOWN_TIME ?> * 2;
+		count =<?php echo isset($OJ_SUBMIT_COOLDOWN_TIME) ? $OJ_SUBMIT_COOLDOWN_TIME : 5 ?> * 2;
 		handler_interval = window.setTimeout("resume();", 1000);
 	}
 	function resume() {
@@ -355,7 +369,7 @@
 	<script>
 		ace.require("ace/ext/language_tools");
 		var editor = ace.edit("source");
-		editor.setTheme("ace/theme/chrome");
+		editor.setTheme("ace/theme/xcode");
 		switchLang(<?php echo $lastlang ?>);
 		editor.setOptions({
 			enableBasicAutocompletion: true,
@@ -393,6 +407,29 @@
 			}
 			window.setInterval('autoSave();', 5000);
 		});
+	</script>
+	<script>
+		function increaseFontSize(event) {
+			event.preventDefault();
+			var currentSize = parseInt(editor.getFontSize());
+			editor.setFontSize(currentSize + 3);
+		}
+
+		function decreaseFontSize(event) {
+			event.preventDefault();
+			var currentSize = parseInt(editor.getFontSize());
+			editor.setFontSize(currentSize - 3);
+		}
+		function toggleTheme(event) {
+			event.preventDefault();
+
+			if (editor.getTheme() === "ace/theme/xcode") {
+				editor.setTheme("ace/theme/monokai");
+			} else {
+				editor.setTheme("ace/theme/xcode");
+			}
+		}
+
 	</script>
 <?php } ?>
 
