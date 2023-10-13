@@ -1,8 +1,8 @@
-<?php $show_title = "$MSG_REG_INFO - $OJ_NAME"; ?>
+<?php $show_title = "$MSG_REGISTER - $OJ_NAME"; ?>
 <?php include("template/$OJ_TEMPLATE/header.php"); ?>
 <div class="padding">
   <h1>
-    <?php echo $MSG_REG_INFO ?>
+    <?php echo $MSG_REGISTER ?>
   </h1>
   <div class="ui error message" id="error" data-am-alert hidden>
     <p id="error_info"></p>
