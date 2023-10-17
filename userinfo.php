@@ -89,8 +89,7 @@
                             <div class="ui bottom attached segment">
                                 <script language='javascript'>
                                     function p(id, c) {
-                                        if (c > 0) document.write("<a href=problem.php?id=" + id + " class=\"ui green basic label\" id=\"show-problem-id\">" + id + " </a>");
-                                        else document.write("<a href=problem.php?id=" + id + " class=\"ui red basic label\" id=\"show-problem-id\">" + id + " </a>");
+                                        document.write("<a href=problem.php?id=" + id + " class=\"ui green basic label\" id=\"show-problem-id\">" + id + " </a>");
                                     }
 
                                     function ptot(len) {
@@ -120,8 +119,7 @@
                             <div class="ui bottom attached segment">
                                 <script language='javascript'>
                                         function p(id, c) {
-                                            document.write("<a href=problem.php?id=" + id + " class=\"ui basic label\" id=\"show-problem-id\">" + id +
-                                                " </a>");
+                                            document.write("<a href=problem.php?id=" + id + " class=\"ui red basic label\" id=\"show-problem-id\">" + id + " </a>");
                                         }
                                         <?php
                                         $sql = "SELECT `sol`.`problem_id`, count(1) from solution sol where `sol`.`user_id`=? and `sol`.`result`!=4 and sol.problem_id != 0 and not exists (select * from solution s where s.user_id=sol.user_id and s.problem_id = sol.problem_id and s.result = 4) group by `sol`.`problem_id` ORDER BY `sol`.`problem_id` ASC";
