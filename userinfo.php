@@ -15,10 +15,10 @@
                 <div class="ui card" style="width: 100%; " id="user_card">
                     <div class="blurring dimmable image" id="avatar_container" style="height:325px">
                         <?php $default = "";
-                        $profile = $_SERVER['DOCUMENT_ROOT'] . "/upload/" . $nick . ".webp";
+                        $profile = $_SERVER['DOCUMENT_ROOT'] . "/upload/" . $user . ".webp";
                         $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=500";
                         if (file_exists($profile)) {
-                            $grav_url = "/upload/" . $nick . ".webp";
+                            $grav_url = "/upload/" . $user . ".webp";
                         } ?>
 
                         <img style="margin-top: -100%; " src="<?php echo $grav_url; ?>">
