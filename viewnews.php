@@ -1,5 +1,7 @@
 <?php $show_title="공지사항 - $OJ_NAME"; ?>
 <?php include("template/$OJ_TEMPLATE/header.php");?>
+<?php require_once( 'include/bbcode.php' ); ?>
+
 <div class="padding">
     <h1><?php echo $news_title ?></h1>
     <p style="margin-bottom: 5px; ">
