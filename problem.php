@@ -7,6 +7,7 @@ if ($pr_flag) {
 }
 ?>
 <?php include("template/$OJ_TEMPLATE/header.php"); ?>
+<?php require_once( 'include/bbcode.php' ); ?>
 <style>
   .ace_cursor {
     border-left-width: 1px !important;
