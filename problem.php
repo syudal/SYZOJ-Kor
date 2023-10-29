@@ -122,8 +122,12 @@ if ($pr_flag) {
 
           <div class="ui buttons right floated">
             <a class="small ui button"
-              href="admin/problem_edit.php?id=<?php echo $id ?>&getkey=<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>"><?php echo $MSG_STATUS ?></a>
-            <a class="small ui button" href='javascript:phpfm(<?php echo $row['problem_id']; ?>)'><?php echo $MSG_TEST_DATA ?></a>
+              href="admin/problem_edit.php?id=<?php echo $id ?>&getkey=<?php echo $_SESSION[$OJ_NAME . '_' . 'getkey'] ?>">
+              <?php echo $MSG_EDIT . $MSG_PROBLEM ?>
+            </a>
+            <a class="small ui button" href='javascript:phpfm(<?php echo $row['problem_id']; ?>)'>
+              <?php echo $MSG_TEST_DATA ?>
+            </a>
           </div>
         <?php } ?>
       </div>
@@ -176,7 +180,9 @@ if ($pr_flag) {
           <h4 class="ui top attached block header">
             <?php echo $MSG_Sample_Input ?>
             <span class="copy" id="copyin"
-              data-clipboard-text="<?php echo htmlentities($sinput, ENT_QUOTES, 'UTF-8'); ?>"><?php echo $MSG_COPY; ?></span>
+              data-clipboard-text="<?php echo htmlentities($sinput, ENT_QUOTES, 'UTF-8'); ?>">
+              <?php echo $MSG_COPY; ?>
+            </span>
           </h4>
           <!-- <span class=copy id=\"copyin\" data-clipboard-text=\"".($sinput)."\"><?php echo $MSG_COPY; ?></span> -->
           <div class="ui bottom attached segment font-content">
@@ -192,7 +198,9 @@ if ($pr_flag) {
           <h4 class="ui top attached block header">
             <?php echo $MSG_Sample_Output ?>
             <span class="copy" id="copyout"
-              data-clipboard-text="<?php echo htmlentities($soutput, ENT_QUOTES, 'UTF-8'); ?>"><?php echo $MSG_COPY; ?></span>
+              data-clipboard-text="<?php echo htmlentities($soutput, ENT_QUOTES, 'UTF-8'); ?>">
+              <?php echo $MSG_COPY; ?>
+            </span>
           </h4>
           <!-- <span class=copy id=\"copyout\" data-clipboard-text=\"".($soutput)."\"><?php echo $MSG_COPY; ?></span> -->
           <div class="ui bottom attached segment font-content">
@@ -300,10 +308,10 @@ if ($pr_flag) {
         $("#submitPage").html("<iframe src='" + submitURL + "&spa' width='" + width + "px' height='" + height + "px' ></iframe>");
       }
       $("#submit").remove();
-  <?php if ($row['spj'] > 1) { ?>
-          window.setTimeout('$("iframe")[0].contentWindow.$("#TestRun").remove();', 1000);
-        <?php } ?>
-  }
+      <?php if ($row['spj'] > 1) { ?>
+        window.setTimeout('$("iframe")[0].contentWindow.$("#TestRun").remove();', 1000);
+      <?php } ?>
+    }
 
     function submit_code() {
       if (!$('#submit_code input[name=answer]').val().trim() && !editor.getValue().trim()) return false;
@@ -364,11 +372,28 @@ if ($pr_flag) {
         $("div.md").each(function () {
           $(this).html(marked.parse($(this).text()));
         });
+
+        $(".md table tr td").css({
+          "border": "1px solid grey",
+          "text-align": "center",
+          "width": "200px",
+          "height": "30px"
+        });
+
+        $(".md table th").css({
+          "border": "1px solid grey",
+          "width": "200px",
+          "height": "30px",
+          "background-color": "#9e9e9ea1",
+          "text-align": "center"
+        });
+
       <?php } ?>
       //单纯文本1. A. B. C. D. 自动变控件
       $('span[class=auto_select]').each(function () {
         let i = 1;
         let start = 0;
+        let next = 0;
         let raw = $(this).html();
         let options = ['A', 'B', 'C', 'D'];
         while (start >= 0) {
@@ -379,8 +404,13 @@ if ($pr_flag) {
           for (let j = 0; j < 4; j++) {
             let option = options[j];
             end = raw.indexOf(option + ".", start);
+            next = raw.indexOf((i + 1) + ".", start);
+            if (end < 0 || (end > next && next > 0)) {
+              console.log("i:" + i + " j:" + option + " end:" + end + " next:" + next);
+              end = start;
+              break;
+            }
             if (j == 0 && raw.substring(start, end).indexOf("多选") > 0) type = "checkbox";
-            if (end < 0) break;
             let disp = "<input type=\"" + type + "\" name=\"" + i + "\" value=\"" + option + "\" />" + option + ".";
             //console.log(disp);
             raw = raw.substring(0, end - 1) + disp + raw.substring(end + 2);
@@ -392,6 +422,8 @@ if ($pr_flag) {
         //console.log(raw);
         $(this).html(raw);
       });
+
+
 
 
       $('input[type="radio"]').click(function () {
@@ -407,11 +439,11 @@ if ($pr_flag) {
         });
         selectMulti(num, answer);
       });
-  <?php if ($row['spj'] > 1) { ?>
-          transform();
-  <?php } ?>
+      <?php if ($row['spj'] > 1) { ?>
+        transform();
+      <?php } ?>
 
-  });
+    });
   </script>
 
 
