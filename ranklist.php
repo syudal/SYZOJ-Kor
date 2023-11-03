@@ -30,9 +30,15 @@
               preg_match($user_id_pattern, $row[1], $user_id);
               preg_match($nick_pattern, $row[2], $nick);
 
-              echo "<img class=\"profile_img\" src=\"/upload/" . htmlentities ( $user_id[1],ENT_QUOTES,"UTF-8") . ".webp\"></img>";
+              $profile = "/upload/" . htmlentities ( $user_id[1],ENT_QUOTES,"UTF-8") . ".webp";
+              $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=500";
+              if (file_exists($_SERVER['DOCUMENT_ROOT'] . $profile)) {
+                  $grav_url = $profile;
+              }
+
+              echo "<img class=\"profile_img\" src=\"" . $grav_url . "\"></img>";
               echo "<div class=\"user_info\">";
-              echo "<p>"."<a href='userinfo.php?user=" .htmlentities ( $nick[1],ENT_QUOTES,"UTF-8"). "'>" . $nick[1] . "</a>" . " / " . htmlentities ( $nick[1] ,ENT_QUOTES,"UTF-8") . "</div>";
+              echo "<p>"."<a href='userinfo.php?user=" . htmlentities ( $nick[1],ENT_QUOTES,"UTF-8") . "'>" . $nick[1] . "</a>" . " / " . htmlentities ( $nick[1] ,ENT_QUOTES,"UTF-8") . "</div>";
               echo "</div>";
               $i++;
             } else {
