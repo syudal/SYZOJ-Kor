@@ -25,9 +25,14 @@
           for ( $i=0; $i<6; $i++ ) {
             echo "<td>";
             if($i == 1){
-              echo "<img class=\"profile_img\" src=\"/upload/" . htmlentities ( $row[$i]['user_id'],ENT_QUOTES,"UTF-8") . ".webp\"></img>";
+              $user_id_pattern = '/<a href=\'userinfo\.php\?user=([^\']+)\'>([^<]+)<\/a>/';
+              $nick_pattern = '/<div class=center>([^<]+)<\/div>/';
+              preg_match($user_id_pattern, $row[1], $user_id);
+              preg_match($nick_pattern, $row[2], $nick);
+
+              echo "<img class=\"profile_img\" src=\"/upload/" . htmlentities ( $user_id[1],ENT_QUOTES,"UTF-8") . ".webp\"></img>";
               echo "<div class=\"user_info\">";
-              echo "<p>"."<a href='userinfo.php?user=" .htmlentities ( $row[$i]['user_id'],ENT_QUOTES,"UTF-8"). "'>" . $row['user_id'] . "</a>" . "/ " . htmlentities ( $row['nick'] ,ENT_QUOTES,"UTF-8") . "</div>";
+              echo "<p>"."<a href='userinfo.php?user=" .htmlentities ( $nick[1],ENT_QUOTES,"UTF-8"). "'>" . $nick[1] . "</a>" . "/ " . htmlentities ( $nick[1] ,ENT_QUOTES,"UTF-8") . "</div>";
               echo "</div>";
               $i++;
             } else {
