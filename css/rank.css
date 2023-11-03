@@ -1,0 +1,16 @@
+.rank_table tr td {
+    vertical-align: middle;
+}
+
+.rank_table tr td .profile_img {
+    height: 100%;
+    width: 150px;
+    float: left;
+}
+
+.rank_table tr td .user_info {
+    text-align: left;
+    float: left;
+    padding: 0px 0px 0px 10px;
+    margin-top: 49px;
+}
