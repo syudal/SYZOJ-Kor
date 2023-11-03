@@ -32,7 +32,7 @@
 
               echo "<img class=\"profile_img\" src=\"/upload/" . htmlentities ( $user_id[1],ENT_QUOTES,"UTF-8") . ".webp\"></img>";
               echo "<div class=\"user_info\">";
-              echo "<p>"."<a href='userinfo.php?user=" .htmlentities ( $nick[1],ENT_QUOTES,"UTF-8"). "'>" . $nick[1] . "</a>" . "/ " . htmlentities ( $nick[1] ,ENT_QUOTES,"UTF-8") . "</div>";
+              echo "<p>"."<a href='userinfo.php?user=" .htmlentities ( $nick[1],ENT_QUOTES,"UTF-8"). "'>" . $nick[1] . "</a>" . " / " . htmlentities ( $nick[1] ,ENT_QUOTES,"UTF-8") . "</div>";
               echo "</div>";
               $i++;
             } else {

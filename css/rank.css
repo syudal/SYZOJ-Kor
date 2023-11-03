@@ -1,5 +1,5 @@
 .rank_table tr td {
-    vertical-align: middle;
+    vertical-align: middle !important;
 }
 
 .rank_table tr td .profile_img {
@@ -11,6 +11,6 @@
 .rank_table tr td .user_info {
     text-align: left;
     float: left;
-    padding: 0px 0px 0px 10px;
-    margin-top: 49px;
+    padding: 0px 0px 0px 15px;
+    margin-top: 60px;
 }
