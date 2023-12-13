@@ -14,7 +14,7 @@
          <button  class='ui small yellow button' onclick='$("tr[class!=active]").toggle();'>Show/Hide</button>
  </h1>
 </div>
-<div id="rankdiv" class="padding" onclick="$(this).css('margin-left',(548-window.innerWidth/2)+'px').css('margin-right',(548-window.innerWidth/2)+'px')" style="margin-left:-200px;margin-right:-200px;overflow:auto"
+<div id="rankdiv" class="padding" onclick="$(this).css('margin-left',(548-window.innerWidth/2)+'px').css('margin-right',(548-window.innerWidth/2)+'px')" style="margin-left:-200px;margin-right:-200px;overflow:auto" >  
     <?php if($user_cnt>0){ ?>
     <table class="ui very basic center aligned table" style="margin:30px">
         <thead>
@@ -41,7 +41,7 @@
                  echo "<tr onclick='$(this).attr(\"class\",\"active\");'  ondblclick='$(this).attr(\"class\",\"\");' >";
 
                 echo "<td>";
-                  if($nick[0]!="*"){
+                  if(isset($nick[0])&&$nick[0]!="*"){
                     if($rank==1)
                       echo "<div class=\"ui yellow ribbon label\">";
                     else if($rank==2)

@@ -259,18 +259,18 @@
 				problem_id.value = '<?php if (isset($cid))
 				echo $cid ?>';
 			document.getElementById("frmSolution").target = "_self";
-	
-<?php if (isset($_GET['spa'])) { ?>
-				$.post("submit.php?ajax", $("#frmSolution").serialize(), function (data) { fresh_result(data); });
-				$("#Submit").prop('disabled', true);
-				$("#TestRub").prop('disabled', true);
-				count =<?php echo $OJ_SUBMIT_COOLDOWN_TIME ?> * 2;
-				handler_interval = window.setTimeout("resume();", 1000);
-<?php } else { ?>
-				document.getElementById("frmSolution").submit();
-<?php } ?>
 
-}
+		<?php if (isset($_GET['spa'])) { ?>
+			$.post("submit.php?ajax", $("#frmSolution").serialize(), function (data) { fresh_result(data); });
+			$("#Submit").prop('disabled', true);
+			$("#TestRub").prop('disabled', true);
+			count = <?php echo $OJ_SUBMIT_COOLDOWN_TIME ?> * 2;
+			handler_interval = window.setTimeout("resume();", 1000);
+		<?php } else { ?>
+			document.getElementById("frmSolution").submit();
+		<?php } ?>
+
+	}
 	var handler_interval;
 	function do_test_run() {
 		if (handler_interval) window.clearInterval(handler_interval);
@@ -294,7 +294,7 @@
 		$("#Submit").prop('disabled', true);
 		$("#TestRub").prop('disabled', true);
 		problem_id.value = -problem_id.value;
-		count =<?php echo isset($OJ_SUBMIT_COOLDOWN_TIME) ? $OJ_SUBMIT_COOLDOWN_TIME : 5 ?> * 2;
+		count = <?php echo isset($OJ_SUBMIT_COOLDOWN_TIME) ? $OJ_SUBMIT_COOLDOWN_TIME : 5 ?> * 2;
 		handler_interval = window.setTimeout("resume();", 1000);
 	}
 	function resume() {
@@ -376,6 +376,7 @@
 			enableSnippets: true,
 			enableLiveAutocompletion: true,  //改为true,打开自动补齐功能，改为false关闭
 			// fontFamily: "Consolas",  // MacOS missing align
+			// theme: "ace/theme/ambiance",   // Black theme
 			fontSize: "18px"
 		});
 		reloadtemplate($("#language").val());
