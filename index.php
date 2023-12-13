@@ -37,7 +37,7 @@
                 </table>
             </div>
             <?php
-            /* 本月之星  */
+            /* 이번 달 명예의 전당  */
             $month_id = mysql_query_cache("select solution_id from solution where  in_date<date_add(curdate(),interval -day(curdate())+1 DAY) order by solution_id desc limit 1;");
             if (is_array($month_id))
                 $month_id = $month_id[0][0];
@@ -47,7 +47,7 @@
             if (is_array($view_month_rank)) {
                 ?>
                 <h4 class="ui top attached block header"><i class="ui star icon"></i>
-                    <?php echo "本月之星" ?>
+                    <?php echo "이번 달 명예의 전당" ?>
                 </h4>
                 <div class="ui bottom attached segment">
                     <table class="ui very basic left aligned table" style="table-layout: fixed; ">
@@ -66,7 +66,7 @@
                 </div>
                 <?php
             }
-            /* 本月之星  */
+            /* 이번 달 명예의 전당  */
             ?>
 
             <h4 class="ui top attached block header"><i class="ui star icon"></i>
@@ -88,7 +88,7 @@
                         ?>
                         <tr>
                             <td>
-                                <center> Recent submission :
+                                <center> 최근 코드 제출 :
                                     <?php echo $speed ?> .
                                     <div id=submission style="width:80%;height:300px"></div>
                                 </center>
